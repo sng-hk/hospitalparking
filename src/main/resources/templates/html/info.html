@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 주차 정보</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #B4B7C1, #f8f9fa);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .parking-container {
+            background: #E3E4E5;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 50px;
+            width: 100%;
+            max-width: 950px;
+            text-align: center;
+        }
+        .parking-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .parking-header p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .floor {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5개의 공간 */
+            gap: 20px;
+            margin-bottom: 30px;
+            margin-top: 10px;
+        }
+        .space {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 70px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .available {
+            background-color: #4caf50;
+        }
+        .occupied {
+            background-color: #f44336;
+        }
+        .reserved {
+            background-color: #ff9800;
+        }
+        .space:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .space-info {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #555;
+        }
+        .space-info .legend {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .space-info .legend div {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+        .available-legend {
+            background-color: #4caf50;
+        }
+        .occupied-legend {
+            background-color: #f44336;
+        }
+        .reserved-legend {
+            background-color: #ff9800;
+        }
+        .refresh-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 14px 28px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #fff;
+            background-color: #00796b;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+        .refresh-btn:hover {
+            background-color: #004d40;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="parking-container">
+        <div class="parking-header">
+            <h1>실시간 주차 정보</h1>
+            <p>현재 주차장 상태를 확인하고, 빠르게 주차 공간을 찾으세요.</p>
+        </div>
+        <div class="parking-details">
+            <div class="floor" id="floor1">
+                <div class="space available">A1</div>
+                <div class="space occupied">A2</div>
+                <div class="space available">A3</div>
+                <div class="space reserved">A4</div>
+                <div class="space available">A5</div>
+            </div>
+            <div class="floor" id="floor2">
+                <div class="space reserved">B1</div>
+                <div class="space available">B2</div>
+                <div class="space occupied">B3</div>
+                <div class="space available">B4</div>
+                <div class="space available">B5</div>
+            </div>
+            <div class="floor" id="floor3">
+                <div class="space occupied">C1</div>
+                <div class="space available">C2</div>
+                <div class="space reserved">C3</div>
+                <div class="space available">C4</div>
+                <div class="space available">C5</div>
+            </div>
+        </div>
+        <button class="refresh-btn" onclick="refreshData()">새로고침</button>
+        <div class="space-info">
+            <div class="legend">
+                <div class="available-legend"></div><span>사용 가능</span>
+            </div>
+            <div class="legend">
+                <div class="occupied-legend"></div><span>점유 중</span>
+            </div>
+            <div class="legend">
+                <div class="reserved-legend"></div><span>예약됨</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 주차 공간 상태를 랜덤하게 설정
+        const statusClasses = ['available', 'occupied', 'reserved'];
+
+        function refreshData() {
+            // 랜덤하게 각 주차 공간의 상태를 바꿔줌
+            const floors = ['floor1', 'floor2', 'floor3'];
+            floors.forEach(floor => {
+                const spaces = document.getElementById(floor).children;
+                Array.from(spaces).forEach(space => {
+                    const randomStatus = statusClasses[Math.floor(Math.random() * statusClasses.length)];
+                    space.className = `space ${randomStatus}`;
+                    space.textContent = space.id || space.textContent; // ID로 바꾸지 않도록
+                });
+            });
+
+            // 알림
+            alert("주차 정보가 새로고침되었습니다.");
+        }
+    </script>
+</body>
+</html>

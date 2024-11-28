@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>병원 주차 관리 시스템</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar {
+            background-color: #8f7f79;
+        }
+        .navbar-brand, .nav-link, .nav-item .btn {
+            color: #E3E4E5 !important;
+        }
+        .nav-link {
+            margin-right: 15px;
+        }
+        .navbar .form-control {
+            margin-right: 10px;
+        }
+        .hero {
+            background: linear-gradient(to right, #D6DCE1, #EEEBE4);
+            color: #C2A69C;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.2rem;
+        }
+        .hero .btn {
+            background-color: #C2A69C;
+            color: #EEEBE4;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .hero .btn:hover {
+            background-color: #A8857C;
+            transform: scale(1.05);
+        }
+        .features {
+            margin-top: -50px;
+            z-index: 2;
+            position: relative;
+        }
+        .features .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .features .card:hover {
+            transform: translateY(-10px);
+        }
+        .features .card .card-icon {
+            font-size: 2.5rem;
+            color: #C2A69C;
+            margin-bottom: 15px;
+        }
+        .features .btn {
+            background-color: #EEEBE4;
+            color: #644d2f;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .features .btn:hover {
+            background-color: #D4D1C7;
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #C2A69C;
+            color: #eeebe4e6;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">SHPS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="reservation.html" onclick="checkLogin(event)">reservation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payment.html" onclick="checkLogin(event)">payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info.html" onclick="checkLogin(event)">parking information</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Q&A</a>
+                    </li>
+                    <li class="nav-item">
+                        <form class="d-flex" action="search.html" method="GET">
+                            <input class="form-control me-2" type="search" name="query" placeholder="검색" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fas fa-search"></i> 
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1>Making Hospital Parking Easier</h1>
+            <p>We enhance convenience through smart reservations and real-time information.</p>
+            <a href="reservation.html" class="btn btn-warning btn-lg mt-4">reservation</a>
+        </div>
+    </section>
+
+    <!-- 기능 카드 섹션 -->
+    <section class="features py-5 bg-light">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fas fa-calendar-check card-icon"></i>
+                        <h5 class="card-title">주차 예약</h5>
+                        <p class="card-text">빠르고 간편한 주차 예약으로 시간을 절약하세요.</p>
+                        <a href="reservation.html" class="btn" onclick="checkLogin(event)">예약하기</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fas fa-wallet card-icon"></i>
+                        <h5 class="card-title">정산하기</h5>
+                        <p class="card-text">정확한 주차 요금을 확인하고 간편하게 결제하세요.</p>
+                        <a href="payment.html" class="btn" onclick="checkLogin(event)">정산하기</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fas fa-parking card-icon"></i>
+                        <h5 class="card-title">실시간 정보</h5>
+                        <p class="card-text">현재 사용 가능한 주차 공간을 한눈에 확인하세요.</p>
+                        <a href="info.html" class="btn" onclick="checkLogin(event)">확인하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Smart Hospital Parking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 로그인 확인 함수
+        function checkLogin(event) {
+            let loggedIn = false; // 실제 로그인 상태 확인
+            if (!loggedIn) {
+                event.preventDefault();
+                alert("로그인 후 이용 가능합니다.");
+            }
+        }
+    </script>
+</body>
+</html>

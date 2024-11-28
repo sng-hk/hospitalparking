@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정산하기 - 병원 주차 관리 시스템</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #E0C6B7, #E0C6B7);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .payment-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .payment-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .payment-header h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .form-control {
+            height: 45px;
+            font-size: 1rem;
+        }
+        .btn-success {
+            background-color: #B4B7C1;
+            border-color: #B4B7C1;
+            height: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .btn-success:hover {
+            background-color: #C2A69C;
+        }
+        .summary-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        .summary-box p {
+            margin: 0;
+            font-weight: bold;
+        }
+        .summary-box span {
+            float: right;
+            font-weight: normal;
+            color: #6c757d;
+        }
+        .result-container {
+            text-align: center;
+            padding: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #FFE8D9, #FFDED1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .result-container h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6B705C;
+            margin-bottom: 20px;
+        }
+        .result-container p {
+            font-size: 1.2rem;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .result-container strong {
+            color: #C05555;
+            font-size: 1.5rem;
+        }
+        .btn-primary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+            height: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #5a6268;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container" id="payment-container">
+        <div class="payment-header">
+            <h1>정산하기</h1>
+        </div>
+        <form id="payment-form">
+            <div class="mb-4">
+                <label for="car-number" class="form-label">차량 번호</label>
+                <input type="text" id="car-number" name="car_number" class="form-control" placeholder="예: 12가 3456" required>
+            </div>
+            <div class="mb-4">
+                <label for="parking-time" class="form-label">주차 시간 (분)</label>
+                <input type="number" id="parking-time" name="parking_time" class="form-control" placeholder="예: 120" required>
+            </div>
+            <div class="summary-box">
+                <p>기본 요금<span>₩2,000</span></p>
+                <p>시간당 추가 요금<span>₩1,000</span></p>
+                <p class="text-muted mt-2">최종 금액은 입력 후 확인됩니다.</p>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-4">결제하기</button>
+        </form>
+    </div>
+
+    <div class="result-container" id="result-container" style="display: none;">
+        <h2>🎉 결제가 완료되었습니다!</h2>
+        <p>총 결제 금액은 다음과 같습니다:</p>
+        <p><strong id="total-amount">₩0</strong></p>
+        <a href="index1.html" class="btn btn-primary">홈으로 돌아가기</a>
+    </div>
+
+    <script>
+        document.getElementById('payment-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // 폼 제출 방지
+
+            // 입력값 가져오기
+            const parkingTime = parseInt(document.getElementById('parking-time').value) || 0;
+            const baseFee = 2000; // 기본 요금
+            const hourlyFee = 1000; // 시간당 추가 요금
+            const totalFee = baseFee + Math.ceil(parkingTime / 60) * hourlyFee;
+
+            // 결과 표시
+            document.getElementById('total-amount').textContent = `₩${totalFee.toLocaleString()}`;
+            document.getElementById('payment-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

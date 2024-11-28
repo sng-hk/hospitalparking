@@ -1,0 +1,9 @@
+/* 사용자 정의 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+footer {
+    font-size: 0.9rem;
+}

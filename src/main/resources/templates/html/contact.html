@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 - 병원 주차 관리 시스템</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #E3E4E5, #E3E4E5);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-container {
+            background: #C2A69C;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .contact-header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        .form-control {
+            height: 45px;
+            font-size: 1rem;
+        }
+        textarea.form-control {
+            height: auto;
+        }
+        .btn-secondary {
+            background-color: #E3E4E5;
+            border-color: #C2A69C;
+            font-size: 1.1rem;
+            font-weight: bold;
+            height: 50px;
+        }
+        .btn-secondary:hover {
+            background-color: #C2A69C;
+        }
+        .info-text {
+            font-size: 0.9rem;
+            color: #E3E4E5;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .success-message h2 {
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .success-message p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1>문의하기</h1>
+        </div>
+        <form id="contact-form">
+            <div class="mb-4">
+                <label for="name" class="form-label">이름</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="이름을 입력하세요" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="form-label">이메일</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="example@example.com" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="form-label">문의 내용</label>
+                <textarea id="message" name="message" class="form-control" rows="6" placeholder="문의 내용을 입력하세요" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary w-100">문의하기</button>
+        </form>
+        <div id="success-message" class="success-message">
+            <h2>문의가 완료되었습니다!</h2>
+            <p>문의 내용을 성공적으로 전송했습니다. 빠른 시일 내에 답변 드리겠습니다.</p>
+            <a href="index1.html" class="btn btn-primary">확인</a>
+        </div>
+    </div>
+
+    <script>
+        // 폼 제출 이벤트 처리
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
+            // 폼 숨기기
+            document.getElementById('contact-form').style.display = 'none';
+            // 성공 메시지 표시
+            document.getElementById('success-message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar {
+            background-color: #C2A69C;
+        }
+        .navbar-brand, .nav-link, .nav-item .btn {
+            color: #E3E4E5 !important;
+        }
+        .hero {
+            background: linear-gradient(to right, #D6DCE1, #EEEBE4);
+            color: #C2A69C;
+            padding: 80px 20px;
+        }
+        .search-result {
+            margin-top: 40px;
+        }
+        .search-result .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">SHPS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="reservation.html">reservation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payment.html">payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info.html">parking information</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mypage.html">my page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Q&A</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1>검색 결과</h1>
+            <p>검색한 결과를 아래에서 확인하세요.</p>
+        </div>
+    </section>
+
+    <!-- 검색 결과 섹션 -->
+    <section class="search-result container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">예약 관련 정보</h5>
+                    <p class="card-text">예약 시스템에 대한 자세한 정보를 확인하세요.</p>
+                    <a href="reservation.html" class="btn btn-warning">예약하기</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">결제 관련 정보</h5>
+                    <p class="card-text">주차 결제에 대한 세부 정보를 확인하세요.</p>
+                    <a href="payment.html" class="btn btn-warning">정산하기</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">실시간 주차 공간</h5>
+                    <p class="card-text">실시간으로 현재 사용 가능한 주차 공간을 확인하세요.</p>
+                    <a href="info.html" class="btn btn-warning">확인하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Smart Hospital Parking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
