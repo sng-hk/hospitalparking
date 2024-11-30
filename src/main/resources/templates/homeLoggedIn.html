@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>병원 주차 관리 시스템</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- CSS -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -44,12 +43,12 @@
             color: #EEEBE4;
             font-size: 1.1rem;
             padding: 10px 20px;
-            border-radius: 50px;
+            border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .hero .btn:hover {
-            background-color: #A8857C;
-            transform: scale(1.05);
+            background-color: #A8877E;
+            transform: scale(1.1);
         }
         .features {
             margin-top: -50px;
@@ -73,12 +72,12 @@
         .features .btn {
             background-color: #EEEBE4;
             color: #644d2f;
-            border-radius: 50px;
+            border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .features .btn:hover {
-            background-color: #D4D1C7;
-            transform: scale(1.05);
+            background-color: #D6DCE1;
+            transform: scale(1.1);
         }
         footer {
             background-color: #C2A69C;
@@ -98,18 +97,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="reservation.html" onclick="checkLogin(event)">reservation</a>
+                        <a class="nav-link" href="reservation.html">reservation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="payment.html" onclick="checkLogin(event)">payment</a>
+                        <a class="nav-link" href="payment.html">payment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="info.html" onclick="checkLogin(event)">parking information</a>
+                        <a class="nav-link" href="info.html">parking information</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">login</a>
+                        <a class="nav-link" href="mypage.html">my page</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Q&A</a>
@@ -118,7 +117,7 @@
                         <form class="d-flex" action="search.html" method="GET">
                             <input class="form-control me-2" type="search" name="query" placeholder="검색" aria-label="Search">
                             <button class="btn btn-outline-light" type="submit">
-                                <i class="fas fa-search"></i> 
+                                <i class="fas fa-search"></i>
                             </button>
                         </form>
                     </li>
@@ -145,7 +144,7 @@
                         <i class="fas fa-calendar-check card-icon"></i>
                         <h5 class="card-title">주차 예약</h5>
                         <p class="card-text">빠르고 간편한 주차 예약으로 시간을 절약하세요.</p>
-                        <a href="reservation.html" class="btn" onclick="checkLogin(event)">예약하기</a>
+                        <a href="reservation.html" class="btn">예약하기</a>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -153,7 +152,7 @@
                         <i class="fas fa-wallet card-icon"></i>
                         <h5 class="card-title">정산하기</h5>
                         <p class="card-text">정확한 주차 요금을 확인하고 간편하게 결제하세요.</p>
-                        <a href="payment.html" class="btn" onclick="checkLogin(event)">정산하기</a>
+                        <a href="payment.html" class="btn">정산하기</a>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -161,7 +160,7 @@
                         <i class="fas fa-parking card-icon"></i>
                         <h5 class="card-title">실시간 정보</h5>
                         <p class="card-text">현재 사용 가능한 주차 공간을 한눈에 확인하세요.</p>
-                        <a href="info.html" class="btn" onclick="checkLogin(event)">확인하기</a>
+                        <a href="info.html" class="btn">확인하기</a>
                     </div>
                 </div>
             </div>
@@ -176,17 +175,6 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // 로그인 확인 함수
-        function checkLogin(event) {
-            let loggedIn = false; // 실제 로그인 상태 확인
-            if (!loggedIn) {
-                event.preventDefault();
-                alert("로그인 후 이용 가능합니다.");
-            }
-        }
-    </script>
+    <script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

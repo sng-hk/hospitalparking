@@ -31,12 +31,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain fileterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests() // 인증, 인가 설정
-                .requestMatchers("/login", "/signup", "/user").permitAll()
+                .requestMatchers("/login", "/signup", "/user", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() // 폼 기반 로그인 설정
                     .loginPage("/login") // 로그인 페이지 경로 설정
-                    .defaultSuccessUrl("/articles") // 로그인이 완료되었을 때 이동할 경로
+                    .defaultSuccessUrl("/") // 로그인이 완료되었을 때 이동할 경로
                 .and()
                 .logout() // 로그아웃 설정
                 .logoutSuccessUrl("/login") // 로그아웃이 완료되었을 때 경로

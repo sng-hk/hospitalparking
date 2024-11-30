@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -25,27 +26,35 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
-
+    @Column(name = "login_id", updatable = false)
+    private String loginId;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @Column(name = "password")
+    @Column(name = "name", nullable = false)
+    private String name; // 이름
+    @Column(name = "password", nullable = false)
     private String password;
-
+    @Column(name = "rrn", nullable = false)
     private String rrn; // 주민등록 번호
-
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber; // 휴대폰 번호
-
+    @Column(name = "car_number", nullable = false)
     private String carNumber; // 차량 번호
-
+    @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updateAt;
 
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String loginId, String name, String phoneNumber, String rrn, String carNumber, String email, String password) {
+        this.loginId = loginId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.rrn = rrn; // 주민등록번호 설정
+        this.carNumber = carNumber;
         this.email = email;
         this.password = password;
+        this.createdAt = LocalDateTime.now(); // 생성 시각 설정
     }
 
     @Override // 권한 반환

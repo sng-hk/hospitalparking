@@ -9,12 +9,12 @@ public class UserViewController {
     // 로그인 페이지
     @GetMapping("/login")
     public String login() {
-        return "html/login";
+        return "login";
     }
 
     // 회원가입 페이지
     @GetMapping("/signup")
     public String signup() {
-        return "html/signup";
+        return "signup";
     }
 }
