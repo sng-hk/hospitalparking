@@ -111,6 +111,7 @@
         <p><span class="info-label">이메일:</span> <span th:text="${user.email}">미지정</span></p>
         <p><span class="info-label">연락처:</span> <span th:text="${user.phoneNumber}">미지정</span></p>
         <p><span class="info-label">주민등록번호:</span> <span th:text="${user.rrn}">미지정</span></p>
+        <p><span class="info-label">차량번호</span> <span th:text="${user.carNumber}">미지정</span></p>
     </div>
 
     <!-- 주차 예약 -->
@@ -119,24 +120,16 @@
         <table id="reservationTable">
             <thead>
             <tr>
-                <th>차량 번호</th>
                 <th>날짜</th>
                 <th>시간</th>
-                <th>수정</th>
-                <th>삭제</th>
+                <th>위치</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="car-number">12가 3456</td>
-                <td class="date">2024-11-30</td>
-                <td class="time">10:30</td>
-                <td>
-                    <button class="btn btn-edit btn-action" data-bs-toggle="modal" data-bs-target="#reservationEditModal" onclick="openReservationEditModal(this)">수정</button>
-                </td>
-                <td>
-                    <button class="btn btn-delete btn-action" onclick="deleteReservation(this)">삭제</button>
-                </td>
+            <tr th:each="reservation : ${reservationList}">
+                <td th:text="${reservation.start}">날짜</td>
+                <td th:text="${reservation.duration}">시간</td>
+                <td th:text="${reservation.parkingSpace}">위치</td>
             </tr>
             </tbody>
         </table>
@@ -169,52 +162,6 @@
 </div>
 
 <script>
-    let currentReservationRow;
-
-    // 주차 예약 수정 모달 열기
-    function openReservationEditModal(button) {
-        currentReservationRow = $(button).closest("tr");
-
-        // 현재 행의 날짜와 시간을 모달에 채우기
-        $("#editReservationDate").val(currentReservationRow.find(".date").text());
-        $("#editReservationTime").val(currentReservationRow.find(".time").text());
-    }
-
-    // 주차 예약 수정 저장
-    function saveReservationChanges() {
-        const newDate = $("#editReservationDate").val();
-        const newTime = $("#editReservationTime").val();
-
-        // 행 업데이트
-        currentReservationRow.find(".date").text(newDate);
-        currentReservationRow.find(".time").text(newTime);
-
-        // 알림 메시지 표시
-        showMessage("주차 예약이 수정되었습니다.");
-
-        // 모달 닫기
-        $("#reservationEditModal").modal("hide");
-    }
-
-    // 주차 예약 삭제
-    function deleteReservation(button) {
-        const row = $(button).closest("tr");
-        row.remove();
-
-        // 알림 메시지 표시
-        showMessage("주차 예약이 삭제되었습니다.");
-    }
-
-    // 알림 메시지 표시
-    function showMessage(message) {
-        const alertBox = $("#alertMessage");
-        alertBox.text(message).fadeIn();
-
-        // 3초 후 메시지 숨기기
-        setTimeout(() => {
-            alertBox.fadeOut();
-        }, 3000);
-    }
 </script>
 </body>
 </html>

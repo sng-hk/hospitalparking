@@ -10,5 +10,4 @@ public class ParkingReservationResponseDTO {
     private String start;
     private int duration;
     private String parkingSpace;
-    private User user;
 }

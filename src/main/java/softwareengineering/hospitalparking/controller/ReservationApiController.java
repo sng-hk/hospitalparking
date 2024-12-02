@@ -48,8 +48,9 @@ public class ReservationApiController {
         return ResponseEntity.ok("success");
     }
 
-    @GetMapping("/reservations")
+    @GetMapping("/reservationList")
     public ResponseEntity<List<ParkingReservationResponseDTO>> reservationList(@AuthenticationPrincipal User user) {
-        parkingService.reservationList(user);
+        List<ParkingReservationResponseDTO> responseDTOs = parkingService.findReservationList(user);
+        return ResponseEntity.ok(responseDTOs);
     }
 }

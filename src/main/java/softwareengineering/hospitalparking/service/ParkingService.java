@@ -12,7 +12,9 @@ import softwareengineering.hospitalparking.dto.ParkingReservationResponseDTO;
 import softwareengineering.hospitalparking.repository.ParkingReservationRepository;
 import softwareengineering.hospitalparking.repository.ParkingSpaceRepository;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,7 +54,23 @@ public class ParkingService {
     }
 
     public List<ParkingReservationResponseDTO> findReservationList(User user) {
-        return parkingReservationRepository.findAllByUserId(user.getId())
-                .orElseThrow(() -> new );
+        List<ParkingReservation> reservations = parkingReservationRepository.findAllByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("예약을 찾을 수 없음"));
+        // ArrayList로 초기화
+        List<ParkingReservationResponseDTO> responseDTOs = new ArrayList<>();
+        // DTO로 변환
+        for (ParkingReservation reservation : reservations) {
+            ParkingReservationResponseDTO dto = new ParkingReservationResponseDTO();
+            dto.setParkingSpace(reservation.getParkingSpace().getLocation());
+            dto.setStart(reservation.getStart().toString()); // 필요한 형식으로 변환
+            // 예약 시작 시간과 종료 시간 간의 Duration 계산
+            LocalDateTime start = reservation.getStart();
+            LocalDateTime end = reservation.getEnd();
+            Duration duration = Duration.between(start, end);
+            dto.setDuration((int) duration.toHours());
+            responseDTOs.add(dto);
+        }
+
+        return responseDTOs;
     }
 }
