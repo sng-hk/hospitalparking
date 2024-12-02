@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주차 예약 - 병원 주차 관리 시스템</title>
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
         body {
-            background: linear-gradient(to bottom, #808474, #f8f9fa);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #E0C6B7, #F4EDE5);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -16,12 +20,12 @@
             margin: 0;
         }
         .reservation-container {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             padding: 40px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
         .reservation-header {
             text-align: center;
@@ -29,64 +33,146 @@
         }
         .reservation-header h1 {
             font-size: 1.8rem;
-            font-weight: bold;
-            color: #c1be90;
+            font-weight: 700;
+            color: #333;
+        }
+        .reservation-header .icon {
+            font-size: 2rem;
+            color: #B4B7C1;
+            margin-bottom: 10px;
         }
         .form-label {
             font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
         }
-        .form-control, .form-select {
-            height: 45px;
-            font-size: 1rem;
+        .parking-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px; /* 간격 확대 */
+            margin-bottom: 20px;
+        }
+        .parking-block {
+            padding: 10px; /* 블록 크기 축소 */
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .parking-block.available {
+            background: #4CAF50; /* 녹색 */
+            color: white; /* 흰색 텍스트 */
+        }
+        .parking-block.disable {
+            background: #d3d3d3; /* 옅은 회색 */
+            color: #999; /* 연한 회색 텍스트 */
+            cursor: not-allowed; /* 금지 기호 커서 */
+        }
+        .parking-block.selected {
+            background: #0062CC; /* 파란색 */
+            color: white;
         }
         .btn-primary {
-            background-color: #c1be90;
-            border-color: #c1be90;
+            background-color: #B4B7C1;
+            border-color: #B4B7C1;
+            font-size: 1rem;
+            font-weight: 500;
             height: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 5px;
         }
         .btn-primary:hover {
-            background-color: #c1be90;
+            background-color: #D6DCE1;
         }
         .info-text {
             font-size: 0.9rem;
             color: #6c757d;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
+        }
+        .legend {
+            font-size: 0.85rem;
+            margin-bottom: 20px; /* 예약 버튼 위로 이동 후 간격 조정 */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        .legend-available {
+            background: #4CAF50;
+        }
+        .legend-reserved {
+            background: #FFC107;
         }
     </style>
 </head>
 <body>
     <div class="reservation-container">
         <div class="reservation-header">
+            <i class="fas fa-calendar-check icon"></i>
             <h1>주차 예약</h1>
         </div>
-        <!-- GET 방식으로 데이터를 전달 --> <!-- 추가할지 말지 고민 -->
-        <form action="confirmation.html" method="GET">
-            <div class="mb-4">
-                <label for="date" class="form-label">날짜</label>
-                <input type="date" id="date" name="date" class="form-control" required>
+        <div class="mb-4">
+            <label for="datetime" class="form-label">예약 날짜 및 시간</label>
+            <input type="datetime-local" id="datetime" name="datetime" class="form-control" required>
+        </div>
+        <div class="mb-4">
+            <label for="duration" class="form-label">사용 시간 (시간 단위)</label>
+            <input type="number" id="duration" name="duration" class="form-control" min="1" required>
+            <button type="button" class="btn btn-primary mt-3" id="checkAvailabilityButton">사용 가능한 주차 공간 확인</button>
+            <input type="text" id="available-spaces" class="form-control mt-2" placeholder="사용 가능한 주차 공간 수" disabled>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">주차 구역 선택 </label>
+            <div class="parking-grid" id="parking-grid">
+                <div class="parking-block disable" data-value="A1">A1</div>
+                <div class="parking-block disable" data-value="A2">A2</div>
+                <div class="parking-block disable" data-value="A3">A3</div>
+                <div class="parking-block disable" data-value="A4">A4</div>
+                <div class="parking-block disable" data-value="A5">A5</div>
+                <div class="parking-block disable" data-value="B1">B1</div>
+                <div class="parking-block disable" data-value="B2">B2</div>
+                <div class="parking-block disable" data-value="B3">B3</div>
+                <div class="parking-block disable" data-value="B4">B4</div>
+                <div class="parking-block disable" data-value="B5">B5</div>
+                <div class="parking-block disable" data-value="C1">C1</div>
+                <div class="parking-block disable" data-value="C2">C2</div>
+                <div class="parking-block disable" data-value="C3">C3</div>
+                <div class="parking-block disable" data-value="C4">C4</div>
+                <div class="parking-block disable" data-value="C5">C5</div>
             </div>
-            <div class="mb-4">
-                <label for="time" class="form-label">시간</label>
-                <input type="time" id="time" name="time" class="form-control" required>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color legend-available"></div>
+                    <span>사용 가능</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-reserved"></div>
+                    <span>예약 중</span>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="parking-space" class="form-label">주차 공간 선택</label>
-                <select id="parking-space" name="parking_space" class="form-select" required>
-                    <option value="" disabled selected>주차 공간을 선택하세요</option>
-                    <option value="A1">A1 구역</option>
-                    <option value="A2">A2 구역</option>
-                    <option value="B1">B1 구역</option>
-                    <option value="B2">B2 구역</option>
-                    <option value="C1">C1 구역</option>
-                    <option value="C2">C2 구역</option>
-                </select>
+            <input type="hidden" id="parking-space" name="parking_space" required>
+            <div class="mt-2">
+                <label for="selected-spot" class="form-label">선택된 주차 구역</label>
+                <input type="text" id="selected-spot" class="form-control" disabled>
             </div>
-            <button type="submit" class="btn btn-primary w-100">예약하기</button>
-        </form>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" id="reserveButton">예약하기</button>
         <p class="info-text">예약 후 도착 예정 시간에 맞춰 주차장을 이용해주세요.</p>
     </div>
+    <!-- Font Awesome for Icons -->
+<!--    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>-->
+    <!-- JavaScript -->
+    <script src="/js/reservation.js"></script>
 </body>
 </html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage - 병원 주차 관리 시스템</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* 기존 스타일 포함 */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #C2A69C, #C2A69C);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .mypage-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px 40px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .alert-message {
+            display: none;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table th, table td {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background: #C2A69C;
+            color: #fff;
+            font-weight: bold;
+        }
+        table td {
+            background: #f9f9f9;
+        }
+        .btn-action {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: transform 0.2s ease;
+        }
+        .btn-action:hover {
+            transform: scale(1.05);
+        }
+        .btn-edit {
+            background-color: #41391e;
+            color: #fff;
+            border: none;
+        }
+        .btn-edit:hover {
+            background-color: #41391e;
+        }
+        .btn-delete {
+            background-color: #41391e;
+            color: #fff;
+            border: none;
+        }
+        .btn-delete:hover {
+            background-color: #41391e;
+        }
+        .user-info {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .user-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .user-info p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .user-info .info-label {
+            font-weight: 500;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container mypage-container">
+    <!-- 알림 -->
+    <div class="alert alert-success alert-message" id="alertMessage" role="alert"></div>
+
+    <!-- 내 개인정보 -->
+    <div class="user-info">
+        <h3>내 개인정보</h3>
+        <p><span class="info-label">이름:</span> <span th:text="${user.name}">미지정</span></p>
+        <p><span class="info-label">이메일:</span> <span th:text="${user.email}">미지정</span></p>
+        <p><span class="info-label">연락처:</span> <span th:text="${user.phoneNumber}">미지정</span></p>
+        <p><span class="info-label">주민등록번호:</span> <span th:text="${user.rrn}">미지정</span></p>
+    </div>
+
+    <!-- 주차 예약 -->
+    <div class="table-box mt-4">
+        <h2 class="section-title">내 주차 예약 정보</h2>
+        <table id="reservationTable">
+            <thead>
+            <tr>
+                <th>차량 번호</th>
+                <th>날짜</th>
+                <th>시간</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="car-number">12가 3456</td>
+                <td class="date">2024-11-30</td>
+                <td class="time">10:30</td>
+                <td>
+                    <button class="btn btn-edit btn-action" data-bs-toggle="modal" data-bs-target="#reservationEditModal" onclick="openReservationEditModal(this)">수정</button>
+                </td>
+                <td>
+                    <button class="btn btn-delete btn-action" onclick="deleteReservation(this)">삭제</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 주차 예약 수정 모달 -->
+<div class="modal fade" id="reservationEditModal" tabindex="-1" aria-labelledby="reservationEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationEditModalLabel">주차 예약 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reservationEditForm">
+                    <div class="mb-3">
+                        <label for="editReservationDate" class="form-label">날짜</label>
+                        <input type="date" class="form-control" id="editReservationDate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editReservationTime" class="form-label">시간</label>
+                        <input type="time" class="form-control" id="editReservationTime">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" onclick="saveReservationChanges()">저장</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentReservationRow;
+
+    // 주차 예약 수정 모달 열기
+    function openReservationEditModal(button) {
+        currentReservationRow = $(button).closest("tr");
+
+        // 현재 행의 날짜와 시간을 모달에 채우기
+        $("#editReservationDate").val(currentReservationRow.find(".date").text());
+        $("#editReservationTime").val(currentReservationRow.find(".time").text());
+    }
+
+    // 주차 예약 수정 저장
+    function saveReservationChanges() {
+        const newDate = $("#editReservationDate").val();
+        const newTime = $("#editReservationTime").val();
+
+        // 행 업데이트
+        currentReservationRow.find(".date").text(newDate);
+        currentReservationRow.find(".time").text(newTime);
+
+        // 알림 메시지 표시
+        showMessage("주차 예약이 수정되었습니다.");
+
+        // 모달 닫기
+        $("#reservationEditModal").modal("hide");
+    }
+
+    // 주차 예약 삭제
+    function deleteReservation(button) {
+        const row = $(button).closest("tr");
+        row.remove();
+
+        // 알림 메시지 표시
+        showMessage("주차 예약이 삭제되었습니다.");
+    }
+
+    // 알림 메시지 표시
+    function showMessage(message) {
+        const alertBox = $("#alertMessage");
+        alertBox.text(message).fadeIn();
+
+        // 3초 후 메시지 숨기기
+        setTimeout(() => {
+            alertBox.fadeOut();
+        }, 3000);
+    }
+</script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약 확인 - 병원 주차 관리 시스템</title>
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -115,39 +115,23 @@
     </style>
 </head>
 <body>
-    <div class="confirmation-container">
-        <div class="confirmation-header">
-            <i class="fas fa-check-circle success-icon"></i>
-            <h1>예약 완료</h1>
-        </div>
-        <div class="confirmation-details">
-            <p><strong>날짜:</strong> <span id="reservation-date">2024-12-01</span></p>
-            <p><strong>시간:</strong> <span id="reservation-time">14:00</span></p>
-            <p><strong>주차 공간:</strong> <span id="reservation-space">A1 구역</span></p>
-        </div>
-        <div class="button-container">
-            <a href="reservation.html" class="btn btn-primary">새로운 예약하기</a>
-            <a href="homeLoggedIn.html" class="btn btn-secondary">홈으로 돌아가기</a>
-        </div>
-        <footer>
-            <p>&copy; 2024 SHPS - Smart Hospital Parking System</p>
-        </footer>
+<div class="confirmation-container">
+    <div class="confirmation-header">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1>예약 완료</h1>
     </div>
-
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <!-- JavaScript로 데이터 전달 -->
-    <script>
-        // URL 파라미터로 예약 정보 가져오기 (임시 코드)
-        const urlParams = new URLSearchParams(window.location.search);
-        const date = urlParams.get('date') || '미지정';
-        const time = urlParams.get('time') || '미지정';
-        const space = urlParams.get('parking_space') || '미지정';
-
-        // 예약 정보 표시
-        document.getElementById('reservation-date').textContent = date;
-        document.getElementById('reservation-time').textContent = time;
-        document.getElementById('reservation-space').textContent = space;
-    </script>
+    <div class="confirmation-details">
+        <p><strong>날짜:</strong> <span th:text="${start}">미지정</span></p>
+        <p><strong>시간:</strong> <span th:text="${duration}">미지정</span></p>
+        <p><strong>주차 공간:</strong> <span th:text="${parkingSpace}">미지정</span></p>
+    </div>
+    <div class="button-container">
+        <a href="/reservation" class="btn btn-primary">새로운 예약하기</a>
+        <a href="/" class="btn btn-secondary">홈으로 돌아가기</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 SHPS - Smart Hospital Parking System</p>
+    </footer>
+</div>
 </body>
 </html>
