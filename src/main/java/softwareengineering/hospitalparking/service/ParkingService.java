@@ -73,4 +73,8 @@ public class ParkingService {
 
         return responseDTOs;
     }
+
+    public List<ParkingReservation> findReservationList() {
+        return parkingReservationRepository.findAll();
+    }
 }

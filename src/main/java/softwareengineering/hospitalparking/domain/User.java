@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,13 +41,17 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     private String phoneNumber; // 휴대폰 번호
     @Column(name = "car_number", nullable = false)
     private String carNumber; // 차량 번호
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<String> roles; // 사용자 권한을 저장하는 필드
+
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updateAt;
 
     @Builder
-    public User(String loginId, String name, String phoneNumber, String rrn, String carNumber, String email, String password) {
+    public User(String loginId, String name, String phoneNumber, String rrn, String carNumber, String email, String password, Set<String> roles) {
         this.loginId = loginId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -54,6 +59,7 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
         this.carNumber = carNumber;
         this.email = email;
         this.password = password;
+        this.roles = roles;
         this.createdAt = LocalDateTime.now(); // 생성 시각 설정
     }
 

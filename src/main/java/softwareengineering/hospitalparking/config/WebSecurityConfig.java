@@ -21,7 +21,6 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring() // 아래 대상들은 스프링 시큐리티 비활성화
-                //
                 .requestMatchers("/static/**", "/templates/**"); // 스태틱 하위 경로에 있는 리소스
 //                .requestMatchers(toH2Console()); // h2-console하위 url
     }
@@ -46,17 +45,6 @@ public class WebSecurityConfig {
                 .build();
     }
 
-    /*// 특정 http 요청에 대한 웹 기반 보안 구성
-    @Bean
-    public SecurityFilterChain fileterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeRequests() // 인증, 인가 설정
-                .requestMatchers("/**").permitAll()
-                .and()
-                .csrf().disable() // csrf 비활성화
-                .build();
-    }
-
     // 인증 관리자 관련 설정
     // 사용자 정보를 가져올 서비스를 재정의, 인증 방법 (ex. ldap, jdbc 기반 인증)
     @Bean
@@ -68,7 +56,7 @@ public class WebSecurityConfig {
                 .passwordEncoder(bCryptPasswordEncoder)
                 .and()
                 .build();
-    }*/
+    }
 
     // 패스워드 인코더로 사용할 빈 등록
     @Bean
