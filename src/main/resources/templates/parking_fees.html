@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요금 조회</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #644d2f;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #644d2f;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #4f3822;
+        }
+        .info-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">요금 조회</h1>
+        <form action="../../../../../../Documents/카카오톡%20받은%20파일/front%20(1)/front/html/parking_fee_result.html" method="GET">
+            <div class="mb-3">
+                <label for="vehicleNumber" class="form-label">차량 번호</label>
+                <input type="text" class="form-control" id="vehicleNumber" name="vehicleNumber" placeholder="차량 번호를 입력하세요" required>
+                <div class="info-text mt-1">예: 12가3456</div>
+            </div>
+            <div class="mb-3">
+                <label for="entryTime" class="form-label">입차 시간</label>
+                <input type="datetime-local" class="form-control" id="entryTime" name="entryTime" required>
+            </div>
+            <div class="mb-3">
+                <label for="exitTime" class="form-label">출차 시간</label>
+                <input type="datetime-local" class="form-control" id="exitTime" name="exitTime" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">요금 확인</button>
+        </form>
+    </div>
+</body>
+</html>

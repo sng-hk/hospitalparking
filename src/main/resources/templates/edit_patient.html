@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환자 관리</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .action-buttons button {
+            margin: 0 5px;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">환자 목록</h1>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>환자 ID</th>
+                    <th>이름</th>
+                    <th>유형</th>
+                    <th>연락처</th>
+                    <th>주소</th>
+                    <th>작업</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>김철수</td>
+                    <td>위급 환자</td>
+                    <td>010-1234-5678</td>
+                    <td>서울시 강남구</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-edit btn-sm" onclick="editPatient('001')">수정</button>
+                        <button class="btn btn-delete btn-sm" onclick="deletePatient('001')">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>박영희</td>
+                    <td>내원 환자</td>
+                    <td>010-9876-5432</td>
+                    <td>부산시 해운대구</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-edit btn-sm" onclick="editPatient('002')">수정</button>
+                        <button class="btn btn-delete btn-sm" onclick="deletePatient('002')">삭제</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function editPatient(patientId) {
+            // 수정 페이지로 이동
+            window.location.href = `edit_patient.html?patientId=${patientId}`;
+        }
+
+        function deletePatient(patientId) {
+            if (confirm(`환자 ID ${patientId}를 삭제하시겠습니까?`)) {
+                // 삭제 로직 (예: API 호출)
+                alert(`환자 ID ${patientId}가 삭제되었습니다.`);
+                // 여기서 테이블 갱신 로직 추가
+            }
+        }
+    </script>
+</body>
+</html>

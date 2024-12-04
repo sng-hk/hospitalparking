@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요금 결과</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #644d2f;
+            font-weight: 700;
+        }
+        .result-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e6e6e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .btn-back {
+            background-color: #644d2f;
+            color: #ffffff;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+        .btn-back:hover {
+            background-color: #4f3822;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">요금 확인 결과</h1>
+        <div class="result-box">
+            <h2>차량 번호: 12가3456</h2>
+            <p><strong>입차 시간:</strong> 2024-12-01 10:00</p>
+            <p><strong>출차 시간:</strong> 2024-12-01 14:30</p>
+            <p><strong>총 주차 시간:</strong> 4시간 30분</p>
+            <hr>
+            <h3><strong>총 요금:</strong> 10,000원</h3>
+        </div>
+        <div class="text-center mt-4">
+            <a href="parking_fee_query.html" class="btn btn-back w-100">다시 조회하기</a>
+        </div>
+    </div>
+</body>
+</html>
